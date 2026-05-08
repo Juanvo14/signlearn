@@ -2,7 +2,7 @@ import { createClient } from '@supabase/supabase-js'
 
 // Estas variables se configuran en .env
 // En Vercel/Netlify se agregan como environment variables
-const SUPABASE_URL = 'https://tztjzmofemwlmdhgivlq.supabase.co/rest/v1/'
+const SUPABASE_URL = 'https://tztjzmofemwlmdhgivlq.supabase.co'
 const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InR6dGp6bW9mZW13bG1kaGdpdmxxIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzgyMDU2MjIsImV4cCI6MjA5Mzc4MTYyMn0.LF0_c-TZC9vE--zHQrswZmeabJ-WNGSp7EsmXIRh5tk'
 
 export const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY)
