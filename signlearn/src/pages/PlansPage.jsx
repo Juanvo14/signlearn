@@ -19,11 +19,18 @@ export default function PlansPage() {
   const upgradeToPremium = useStore((s) => s.upgradeToPremium)
   const isPremium = user?.plan === 'premium'
 
-  const handleUpgrade = () => {
-    // In prod: redirect to Stripe checkout
-    // For now: activate directly (Stripe integration pending)
-    upgradeToPremium()
-  }
+const handleUpgrade = async () => {
+  const res = await fetch(
+    'https://tuproyecto.supabase.co/functions/v1/create-checkout',
+    {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ userId: user.id, email: user.email })
+    }
+  )
+  const { url } = await res.json()
+  window.location.href = url  // Manda al usuario a pagar en Stripe
+}
 
   return (
     <div className="px-4 py-5 space-y-5">
