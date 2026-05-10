@@ -1,638 +1,515 @@
-// Ilustraciones SVG de manos para cada seña en LSC
-// Cada función devuelve un SVG inline con la posición correcta de la mano
+export function SignIllustration({ word, size = 140 }) {
+  const s = size
+  const scale = s / 140
 
-export function SignIllustration({ signId, word, size = 160 }) {
-  const illustrations = {
+  const Hand = ({ children, bg = "#F5E6D3" }) => (
+    <svg width={s} height={s} viewBox="0 0 140 140" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect width="140" height="140" rx="16" fill={bg}/>
+      {children}
+    </svg>
+  )
 
-    // ── SALUDOS ─────────────────────────────────────────────────
-    'Hola': (
-      <svg width={size} height={size} viewBox="0 0 160 160" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <rect width="160" height="160" rx="20" fill="#E8F5EE"/>
-        {/* Muñeca */}
-        <rect x="68" y="120" width="24" height="28" rx="8" fill="#D4956A"/>
-        {/* Palma */}
-        <rect x="52" y="72" width="56" height="52" rx="14" fill="#E8A87C"/>
-        {/* Dedos abiertos */}
-        <rect x="54" y="36" width="14" height="42" rx="7" fill="#E8A87C"/>
-        <rect x="71" y="28" width="14" height="50" rx="7" fill="#E8A87C"/>
-        <rect x="88" y="30" width="14" height="48" rx="7" fill="#E8A87C"/>
-        <rect x="100" y="40" width="13" height="40" rx="6" fill="#E8A87C"/>
-        {/* Pulgar */}
-        <rect x="38" y="80" width="20" height="12" rx="6" fill="#E8A87C"/>
-        {/* Líneas de la palma */}
-        <path d="M60 100 Q80 96 100 100" stroke="#C4845A" strokeWidth="1.5" fill="none" opacity="0.4"/>
-        {/* Flechas de movimiento */}
-        <path d="M116 60 L130 50 M130 50 L124 56 M130 50 L126 58" stroke="#178C5C" strokeWidth="2.5" strokeLinecap="round"/>
-        <path d="M116 75 L132 68 M132 68 L126 72 M132 68 L128 76" stroke="#178C5C" strokeWidth="2.5" strokeLinecap="round" opacity="0.6"/>
-      </svg>
-    ),
+  // Colores de piel consistentes
+  const skin = "#E8A87C"
+  const skinDark = "#C4845A"
+  const skinLight = "#F2C49B"
+  const green = "#178C5C"
+  const sleeve = "#4A7FC4"
 
-    'Adiós': (
-      <svg width={size} height={size} viewBox="0 0 160 160" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <rect width="160" height="160" rx="20" fill="#E8F5EE"/>
-        <rect x="68" y="118" width="24" height="30" rx="8" fill="#D4956A"/>
-        <rect x="50" y="70" width="60" height="52" rx="14" fill="#E8A87C"/>
-        {/* Dedos doblados */}
-        <rect x="52" y="48" width="13" height="30" rx="6" fill="#E8A87C"/>
-        <path d="M52 78 Q58 58 65 48" stroke="#C4845A" strokeWidth="1" fill="none"/>
-        <rect x="68" y="42" width="13" height="34" rx="6" fill="#E8A87C"/>
-        <rect x="84" y="44" width="13" height="32" rx="6" fill="#E8A87C"/>
-        <rect x="98" y="50" width="12" height="28" rx="6" fill="#E8A87C"/>
-        <rect x="36" y="78" width="20" height="12" rx="6" fill="#E8A87C"/>
-        {/* Flecha hacia afuera */}
-        <path d="M118 55 L140 42" stroke="#178C5C" strokeWidth="2.5" strokeLinecap="round"/>
-        <path d="M134 38 L140 42 L136 48" stroke="#178C5C" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
-      </svg>
-    ),
+  const signs = {
 
-    'Gracias': (
-      <svg width={size} height={size} viewBox="0 0 160 160" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <rect width="160" height="160" rx="20" fill="#E8F5EE"/>
-        {/* Cabeza simplificada */}
-        <circle cx="80" cy="38" r="22" fill="#F0C89A"/>
-        {/* Cuello */}
-        <rect x="72" y="56" width="16" height="14" fill="#F0C89A"/>
-        {/* Mano tocando labios */}
-        <rect x="58" y="62" width="44" height="30" rx="10" fill="#E8A87C"/>
-        {/* Dedos juntos apuntando a la boca */}
-        <rect x="64" y="44" width="10" height="24" rx="5" fill="#E8A87C"/>
-        <rect x="76" y="42" width="10" height="26" rx="5" fill="#E8A87C"/>
-        <rect x="88" y="44" width="10" height="24" rx="5" fill="#E8A87C"/>
-        <rect x="98" y="50" width="9" height="18" rx="4" fill="#E8A87C"/>
-        {/* Flecha hacia afuera */}
-        <path d="M80 96 L80 118" stroke="#178C5C" strokeWidth="2.5" strokeLinecap="round"/>
-        <path d="M72 110 L80 118 L88 110" stroke="#178C5C" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
-      </svg>
-    ),
+    'Hola': <Hand bg="#E8F5EE">
+      <rect x="56" y="100" width="28" height="22" rx="8" fill={skin}/>
+      <rect x="42" y="62" width="56" height="44" rx="14" fill={skin}/>
+      <rect x="44" y="28" width="16" height="40" rx="8" fill={skinLight}/>
+      <rect x="62" y="22" width="16" height="46" rx="8" fill={skinLight}/>
+      <rect x="80" y="24" width="16" height="44" rx="8" fill={skinLight}/>
+      <rect x="96" y="32" width="14" height="38" rx="7" fill={skinLight}/>
+      <rect x="28" y="72" width="20" height="14" rx="7" fill={skin}/>
+      <path d="M104 50 L120 38" stroke={green} strokeWidth="3" strokeLinecap="round"/>
+      <path d="M114 34 L120 38 L116 44" stroke={green} strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" fill="none"/>
+      <path d="M108 62 L122 52" stroke={green} strokeWidth="2.5" strokeLinecap="round" opacity="0.5"/>
+    </Hand>,
 
-    'Por favor': (
-      <svg width={size} height={size} viewBox="0 0 160 160" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <rect width="160" height="160" rx="20" fill="#E8F5EE"/>
-        {/* Torso */}
-        <rect x="52" y="90" width="56" height="45" rx="10" fill="#4A90D9" opacity="0.3"/>
-        {/* Puño en el pecho */}
-        <rect x="58" y="68" width="44" height="36" rx="12" fill="#E8A87C"/>
-        {/* Dedos doblados formando puño */}
-        <rect x="62" y="58" width="10" height="18" rx="5" fill="#E8A87C"/>
-        <rect x="74" y="55" width="10" height="20" rx="5" fill="#E8A87C"/>
-        <rect x="86" y="56" width="10" height="18" rx="5" fill="#E8A87C"/>
-        <rect x="96" y="60" width="9" height="16" rx="4" fill="#E8A87C"/>
-        {/* Pulgar arriba */}
-        <rect x="44" y="68" width="20" height="12" rx="6" fill="#E8A87C"/>
-        {/* Flecha circular */}
-        <path d="M80 58 A22 22 0 1 1 58 80" stroke="#178C5C" strokeWidth="2.5" fill="none" strokeLinecap="round"/>
-        <path d="M54 74 L58 80 L64 76" stroke="#178C5C" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
-      </svg>
-    ),
+    'Adiós': <Hand bg="#E8F5EE">
+      <rect x="56" y="100" width="28" height="22" rx="8" fill={skin}/>
+      <rect x="42" y="62" width="56" height="44" rx="14" fill={skin}/>
+      <rect x="44" y="28" width="14" height="40" rx="7" fill={skinLight}/>
+      <rect x="60" y="22" width="14" height="46" rx="7" fill={skinLight}/>
+      <rect x="76" y="24" width="14" height="44" rx="7" fill={skinLight}/>
+      <rect x="90" y="30" width="13" height="38" rx="6" fill={skinLight}/>
+      <rect x="28" y="72" width="20" height="14" rx="7" fill={skin}/>
+      <path d="M104 44 L126 30" stroke={green} strokeWidth="3" strokeLinecap="round"/>
+      <path d="M119 26 L126 30 L122 37" stroke={green} strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" fill="none"/>
+    </Hand>,
 
-    'Buenos días': (
-      <svg width={size} height={size} viewBox="0 0 160 160" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <rect width="160" height="160" rx="20" fill="#FFF8E8"/>
-        <circle cx="80" cy="36" r="20" fill="#F0C89A"/>
-        <rect x="72" y="52" width="16" height="12" fill="#F0C89A"/>
-        {/* Mano en la frente */}
-        <rect x="48" y="58" width="64" height="28" rx="10" fill="#E8A87C"/>
-        <rect x="52" y="42" width="11" height="24" rx="5" fill="#E8A87C"/>
-        <rect x="65" y="38" width="11" height="28" rx="5" fill="#E8A87C"/>
-        <rect x="78" y="40" width="11" height="26" rx="5" fill="#E8A87C"/>
-        <rect x="90" y="44" width="10" height="22" rx="5" fill="#E8A87C"/>
-        {/* Sol */}
-        <circle cx="128" cy="32" r="14" fill="#FAC775"/>
-        <path d="M128 12 L128 8 M128 52 L128 56 M108 32 L104 32 M148 32 L152 32" stroke="#FAC775" strokeWidth="3" strokeLinecap="round"/>
-        <path d="M114 18 L111 15 M142 46 L145 49 M114 46 L111 49 M142 18 L145 15" stroke="#FAC775" strokeWidth="2.5" strokeLinecap="round"/>
-        {/* Flecha hacia afuera */}
-        <path d="M112 72 L138 72" stroke="#178C5C" strokeWidth="2.5" strokeLinecap="round"/>
-        <path d="M132 66 L138 72 L132 78" stroke="#178C5C" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
-      </svg>
-    ),
+    'Gracias': <Hand bg="#E8F5EE">
+      <ellipse cx="70" cy="30" rx="22" ry="24" fill="#F0C49A"/>
+      <rect x="62" y="50" width="16" height="14" fill="#F0C49A"/>
+      <rect x="44" y="58" width="52" height="30" rx="12" fill={skin}/>
+      <rect x="50" y="40" width="13" height="24" rx="6" fill={skinLight}/>
+      <rect x="65" y="37" width="13" height="27" rx="6" fill={skinLight}/>
+      <rect x="80" y="39" width="13" height="25" rx="6" fill={skinLight}/>
+      <rect x="93" y="44" width="11" height="20" rx="5" fill={skinLight}/>
+      <path d="M70 90 L70 112" stroke={green} strokeWidth="3" strokeLinecap="round"/>
+      <path d="M63 105 L70 112 L77 105" stroke={green} strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" fill="none"/>
+    </Hand>,
 
-    'Buenas noches': (
-      <svg width={size} height={size} viewBox="0 0 160 160" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <rect width="160" height="160" rx="20" fill="#EEF2FF"/>
-        <circle cx="80" cy="36" r="20" fill="#F0C89A"/>
-        <rect x="72" y="52" width="16" height="12" fill="#F0C89A"/>
-        {/* Mano en C cerca de la mejilla */}
-        <path d="M50 65 Q46 80 50 95 Q58 110 72 108 Q86 106 90 92 Q94 78 88 65 Q80 54 66 56 Q52 58 50 65Z" fill="#E8A87C"/>
-        {/* Luna */}
-        <path d="M128 20 A16 16 0 1 1 112 36 A10 10 0 1 0 128 20Z" fill="#C8D8F8"/>
-        {/* Estrellas */}
-        <circle cx="118" cy="55" r="3" fill="#FAC775"/>
-        <circle cx="140" cy="42" r="2" fill="#FAC775"/>
-        <circle cx="108" cy="42" r="2" fill="#FAC775"/>
-        <path d="M88 80 L100 70" stroke="#178C5C" strokeWidth="2.5" strokeLinecap="round"/>
-        <path d="M96 66 L100 70 L96 74" stroke="#178C5C" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
-      </svg>
-    ),
+    'Por favor': <Hand bg="#EEF6FF">
+      <rect x="54" y="104" width="32" height="20" rx="8" fill={sleeve}/>
+      <rect x="42" y="68" width="56" height="40" rx="14" fill={skin}/>
+      <rect x="46" y="50" width="13" height="26" rx="6" fill={skinLight}/>
+      <rect x="61" y="46" width="13" height="30" rx="6" fill={skinLight}/>
+      <rect x="76" y="48" width="13" height="28" rx="6" fill={skinLight}/>
+      <rect x="89" y="54" width="12" height="22" rx="6" fill={skinLight}/>
+      <rect x="28" y="74" width="20" height="14" rx="7" fill={skinLight}/>
+      <path d="M88 54 A28 28 0 1 1 52 54" stroke={green} strokeWidth="3" fill="none" strokeLinecap="round"/>
+      <path d="M47 50 L52 54 L57 50" stroke={green} strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" fill="none"/>
+    </Hand>,
 
-    // ── NÚMEROS ──────────────────────────────────────────────────
-    'Uno': (
-      <svg width={size} height={size} viewBox="0 0 160 160" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <rect width="160" height="160" rx="20" fill="#EEF2FF"/>
-        <rect x="68" y="115" width="24" height="30" rx="8" fill="#D4956A"/>
-        <rect x="52" y="72" width="56" height="50" rx="14" fill="#E8A87C"/>
-        {/* Solo índice extendido */}
-        <rect x="72" y="22" width="16" height="56" rx="8" fill="#E8A87C"/>
-        {/* Otros dedos doblados */}
-        <path d="M54 72 Q54 58 62 56" stroke="#C4845A" strokeWidth="2" fill="none" opacity="0.5"/>
-        <path d="M90 72 Q92 58 100 60" stroke="#C4845A" strokeWidth="2" fill="none" opacity="0.5"/>
-        <path d="M100 72 Q104 62 108 65" stroke="#C4845A" strokeWidth="2" fill="none" opacity="0.5"/>
-        {/* Número */}
-        <text x="130" y="95" fontSize="28" fontWeight="bold" fill="#178C5C" fontFamily="Arial">1</text>
-      </svg>
-    ),
+    'Buenos días': <Hand bg="#FFF8E0">
+      <ellipse cx="70" cy="36" rx="20" ry="22" fill="#F0C49A"/>
+      <rect x="44" y="56" width="52" height="26" rx="12" fill={skin}/>
+      <rect x="48" y="36" width="13" height="26" rx="6" fill={skinLight}/>
+      <rect x="63" y="32" width="13" height="30" rx="6" fill={skinLight}/>
+      <rect x="78" y="34" width="13" height="28" rx="6" fill={skinLight}/>
+      <rect x="91" y="40" width="11" height="22" rx="5" fill={skinLight}/>
+      <circle cx="118" cy="28" r="14" fill="#FAC775"/>
+      <path d="M118 9 L118 5 M118 47 L118 51 M99 28 L95 28 M137 28 L141 28" stroke="#FAC775" strokeWidth="2.5" strokeLinecap="round"/>
+      <path d="M105 15 L102 12 M131 41 L134 44 M105 41 L102 44 M131 15 L134 12" stroke="#FAC775" strokeWidth="2" strokeLinecap="round"/>
+      <path d="M96 66 L116 58" stroke={green} strokeWidth="2.5" strokeLinecap="round"/>
+      <path d="M110 54 L116 58 L112 64" stroke={green} strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" fill="none"/>
+    </Hand>,
 
-    'Dos': (
-      <svg width={size} height={size} viewBox="0 0 160 160" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <rect width="160" height="160" rx="20" fill="#EEF2FF"/>
-        <rect x="68" y="115" width="24" height="30" rx="8" fill="#D4956A"/>
-        <rect x="52" y="72" width="56" height="50" rx="14" fill="#E8A87C"/>
-        {/* Índice y medio extendidos */}
-        <rect x="65" y="22" width="14" height="56" rx="7" fill="#E8A87C"/>
-        <rect x="82" y="22" width="14" height="56" rx="7" fill="#E8A87C"/>
-        <text x="128" y="95" fontSize="28" fontWeight="bold" fill="#178C5C" fontFamily="Arial">2</text>
-      </svg>
-    ),
+    'Buenas noches': <Hand bg="#E8EEFF">
+      <ellipse cx="70" cy="36" rx="20" ry="22" fill="#F0C49A"/>
+      <path d="M44 62 Q38 76 42 92 Q50 108 66 106 Q82 104 86 90 Q90 76 84 62 Q76 50 62 52 Q48 54 44 62Z" fill={skin}/>
+      <path d="M120 20 A18 18 0 1 1 102 38 A11 11 0 1 0 120 20Z" fill="#C8D8F8"/>
+      <circle cx="108" cy="58" r="3.5" fill="#FAC775"/>
+      <circle cx="132" cy="44" r="2.5" fill="#FAC775"/>
+      <circle cx="98" cy="44" r="2" fill="#FAC775"/>
+      <circle cx="124" cy="28" r="2" fill="#FAC775"/>
+    </Hand>,
 
-    'Tres': (
-      <svg width={size} height={size} viewBox="0 0 160 160" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <rect width="160" height="160" rx="20" fill="#EEF2FF"/>
-        <rect x="68" y="115" width="24" height="30" rx="8" fill="#D4956A"/>
-        <rect x="52" y="72" width="56" height="50" rx="14" fill="#E8A87C"/>
-        <rect x="55" y="24" width="13" height="52" rx="6" fill="#E8A87C"/>
-        <rect x="71" y="20" width="13" height="56" rx="6" fill="#E8A87C"/>
-        <rect x="87" y="22" width="13" height="54" rx="6" fill="#E8A87C"/>
-        <text x="126" y="95" fontSize="28" fontWeight="bold" fill="#178C5C" fontFamily="Arial">3</text>
-      </svg>
-    ),
+    'Uno': <Hand bg="#EEF2FF">
+      <rect x="58" y="108" width="24" height="20" rx="8" fill={sleeve}/>
+      <rect x="44" y="70" width="52" height="44" rx="14" fill={skin}/>
+      <rect x="62" y="20" width="16" height="58" rx="8" fill={skinLight}/>
+      <path d="M46 70 Q46 56 54 54" stroke={skinDark} strokeWidth="3" fill="none" strokeLinecap="round"/>
+      <path d="M88 70 Q90 56 96 58" stroke={skinDark} strokeWidth="3" fill="none" strokeLinecap="round"/>
+      <path d="M96 70 Q100 60 104 63" stroke={skinDark} strokeWidth="3" fill="none" strokeLinecap="round"/>
+      <text x="118" y="100" fontSize="30" fontWeight="bold" fill={green} fontFamily="Arial">1</text>
+    </Hand>,
 
-    'Cuatro': (
-      <svg width={size} height={size} viewBox="0 0 160 160" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <rect width="160" height="160" rx="20" fill="#EEF2FF"/>
-        <rect x="68" y="115" width="24" height="30" rx="8" fill="#D4956A"/>
-        <rect x="52" y="72" width="56" height="50" rx="14" fill="#E8A87C"/>
-        <rect x="54" y="24" width="12" height="52" rx="6" fill="#E8A87C"/>
-        <rect x="69" y="20" width="12" height="56" rx="6" fill="#E8A87C"/>
-        <rect x="84" y="22" width="12" height="54" rx="6" fill="#E8A87C"/>
-        <rect x="99" y="26" width="12" height="50" rx="6" fill="#E8A87C"/>
-        {/* Pulgar doblado */}
-        <path d="M52 78 Q46 84 50 90" stroke="#C4845A" strokeWidth="3" fill="none" strokeLinecap="round"/>
-        <text x="124" y="95" fontSize="28" fontWeight="bold" fill="#178C5C" fontFamily="Arial">4</text>
-      </svg>
-    ),
+    'Dos': <Hand bg="#EEF2FF">
+      <rect x="58" y="108" width="24" height="20" rx="8" fill={sleeve}/>
+      <rect x="44" y="70" width="52" height="44" rx="14" fill={skin}/>
+      <rect x="52" y="20" width="15" height="56" rx="7" fill={skinLight}/>
+      <rect x="70" y="18" width="15" height="58" rx="7" fill={skinLight}/>
+      <path d="M90 70 Q94 58 100 60" stroke={skinDark} strokeWidth="3" fill="none" strokeLinecap="round"/>
+      <path d="M98 72 Q102 62 106 65" stroke={skinDark} strokeWidth="3" fill="none" strokeLinecap="round"/>
+      <text x="114" y="100" fontSize="30" fontWeight="bold" fill={green} fontFamily="Arial">2</text>
+    </Hand>,
 
-    'Cinco': (
-      <svg width={size} height={size} viewBox="0 0 160 160" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <rect width="160" height="160" rx="20" fill="#EEF2FF"/>
-        <rect x="68" y="115" width="24" height="30" rx="8" fill="#D4956A"/>
-        <rect x="48" y="72" width="64" height="50" rx="14" fill="#E8A87C"/>
-        <rect x="54" y="24" width="12" height="52" rx="6" fill="#E8A87C"/>
-        <rect x="69" y="20" width="12" height="56" rx="6" fill="#E8A87C"/>
-        <rect x="84" y="22" width="12" height="54" rx="6" fill="#E8A87C"/>
-        <rect x="99" y="26" width="12" height="50" rx="6" fill="#E8A87C"/>
-        <rect x="36" y="74" width="18" height="12" rx="6" fill="#E8A87C"/>
-        <text x="124" y="95" fontSize="28" fontWeight="bold" fill="#178C5C" fontFamily="Arial">5</text>
-      </svg>
-    ),
+    'Tres': <Hand bg="#EEF2FF">
+      <rect x="58" y="108" width="24" height="20" rx="8" fill={sleeve}/>
+      <rect x="42" y="70" width="56" height="44" rx="14" fill={skin}/>
+      <rect x="34" y="72" width="16" height="12" rx="6" fill={skinLight}/>
+      <rect x="48" y="20" width="14" height="56" rx="7" fill={skinLight}/>
+      <rect x="65" y="16" width="14" height="60" rx="7" fill={skinLight}/>
+      <rect x="82" y="18" width="14" height="58" rx="7" fill={skinLight}/>
+      <text x="108" y="100" fontSize="30" fontWeight="bold" fill={green} fontFamily="Arial">3</text>
+    </Hand>,
 
-    'Seis': (
-      <svg width={size} height={size} viewBox="0 0 160 160" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <rect width="160" height="160" rx="20" fill="#EEF2FF"/>
-        <rect x="68" y="115" width="24" height="30" rx="8" fill="#D4956A"/>
-        <rect x="52" y="72" width="56" height="50" rx="14" fill="#E8A87C"/>
-        {/* Pulgar y meñique extendidos */}
-        <rect x="36" y="70" width="22" height="12" rx="6" fill="#E8A87C"/>
-        <rect x="100" y="26" width="12" height="50" rx="6" fill="#E8A87C"/>
-        <text x="126" y="95" fontSize="28" fontWeight="bold" fill="#178C5C" fontFamily="Arial">6</text>
-      </svg>
-    ),
+    'Cuatro': <Hand bg="#EEF2FF">
+      <rect x="58" y="108" width="24" height="20" rx="8" fill={sleeve}/>
+      <rect x="42" y="70" width="56" height="44" rx="14" fill={skin}/>
+      <rect x="46" y="20" width="13" height="56" rx="6" fill={skinLight}/>
+      <rect x="62" y="16" width="13" height="60" rx="6" fill={skinLight}/>
+      <rect x="78" y="18" width="13" height="58" rx="6" fill={skinLight}/>
+      <rect x="93" y="22" width="12" height="54" rx="6" fill={skinLight}/>
+      <path d="M44 80 Q36 84 38 92" stroke={skinDark} strokeWidth="4" fill="none" strokeLinecap="round"/>
+      <text x="116" y="100" fontSize="28" fontWeight="bold" fill={green} fontFamily="Arial">4</text>
+    </Hand>,
 
-    'Siete': (
-      <svg width={size} height={size} viewBox="0 0 160 160" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <rect width="160" height="160" rx="20" fill="#EEF2FF"/>
-        <rect x="68" y="115" width="24" height="30" rx="8" fill="#D4956A"/>
-        <rect x="52" y="72" width="56" height="50" rx="14" fill="#E8A87C"/>
-        <rect x="54" y="24" width="12" height="52" rx="6" fill="#E8A87C"/>
-        <rect x="69" y="20" width="12" height="56" rx="6" fill="#E8A87C"/>
-        <rect x="84" y="22" width="12" height="54" rx="6" fill="#E8A87C"/>
-        <rect x="99" y="26" width="12" height="50" rx="6" fill="#E8A87C"/>
-        {/* Pulgar toca dedo medio */}
-        <circle cx="48" cy="60" r="8" fill="#E8A87C"/>
-        <path d="M48 60 Q60 56 76 58" stroke="#C4845A" strokeWidth="2" fill="none"/>
-        <text x="124" y="95" fontSize="28" fontWeight="bold" fill="#178C5C" fontFamily="Arial">7</text>
-      </svg>
-    ),
+    'Cinco': <Hand bg="#EEF2FF">
+      <rect x="58" y="108" width="24" height="20" rx="8" fill={sleeve}/>
+      <rect x="36" y="70" width="68" height="44" rx="14" fill={skin}/>
+      <rect x="46" y="20" width="13" height="56" rx="6" fill={skinLight}/>
+      <rect x="62" y="16" width="13" height="60" rx="6" fill={skinLight}/>
+      <rect x="78" y="18" width="13" height="58" rx="6" fill={skinLight}/>
+      <rect x="93" y="22" width="12" height="54" rx="6" fill={skinLight}/>
+      <rect x="24" y="72" width="20" height="14" rx="7" fill={skinLight}/>
+      <text x="112" y="100" fontSize="28" fontWeight="bold" fill={green} fontFamily="Arial">5</text>
+    </Hand>,
 
-    'Ocho': (
-      <svg width={size} height={size} viewBox="0 0 160 160" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <rect width="160" height="160" rx="20" fill="#EEF2FF"/>
-        <rect x="68" y="115" width="24" height="30" rx="8" fill="#D4956A"/>
-        <rect x="52" y="72" width="56" height="50" rx="14" fill="#E8A87C"/>
-        <rect x="54" y="24" width="12" height="52" rx="6" fill="#E8A87C"/>
-        <rect x="69" y="20" width="12" height="56" rx="6" fill="#E8A87C"/>
-        <rect x="84" y="22" width="12" height="54" rx="6" fill="#E8A87C"/>
-        {/* Pulgar toca anular */}
-        <circle cx="48" cy="60" r="8" fill="#E8A87C"/>
-        <path d="M48 60 Q62 58 86 60" stroke="#C4845A" strokeWidth="2" fill="none"/>
-        <text x="124" y="95" fontSize="28" fontWeight="bold" fill="#178C5C" fontFamily="Arial">8</text>
-      </svg>
-    ),
+    'Seis': <Hand bg="#EEF2FF">
+      <rect x="58" y="108" width="24" height="20" rx="8" fill={sleeve}/>
+      <rect x="44" y="70" width="52" height="44" rx="14" fill={skin}/>
+      <rect x="24" y="68" width="26" height="14" rx="7" fill={skinLight}/>
+      <rect x="92" y="20" width="13" height="56" rx="6" fill={skinLight}/>
+      <text x="114" y="100" fontSize="28" fontWeight="bold" fill={green} fontFamily="Arial">6</text>
+    </Hand>,
 
-    'Nueve': (
-      <svg width={size} height={size} viewBox="0 0 160 160" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <rect width="160" height="160" rx="20" fill="#EEF2FF"/>
-        <rect x="68" y="115" width="24" height="30" rx="8" fill="#D4956A"/>
-        <rect x="52" y="72" width="56" height="50" rx="14" fill="#E8A87C"/>
-        <rect x="54" y="24" width="12" height="52" rx="6" fill="#E8A87C"/>
-        <rect x="69" y="20" width="12" height="56" rx="6" fill="#E8A87C"/>
-        {/* Pulgar toca meñique */}
-        <circle cx="48" cy="60" r="8" fill="#E8A87C"/>
-        <rect x="99" y="26" width="12" height="50" rx="6" fill="#E8A87C"/>
-        <path d="M48 60 Q70 55 100 58" stroke="#C4845A" strokeWidth="2" fill="none"/>
-        <text x="124" y="95" fontSize="28" fontWeight="bold" fill="#178C5C" fontFamily="Arial">9</text>
-      </svg>
-    ),
+    'Siete': <Hand bg="#EEF2FF">
+      <rect x="58" y="108" width="24" height="20" rx="8" fill={sleeve}/>
+      <rect x="44" y="70" width="52" height="44" rx="14" fill={skin}/>
+      <rect x="46" y="20" width="13" height="56" rx="6" fill={skinLight}/>
+      <rect x="62" y="16" width="13" height="60" rx="6" fill={skinLight}/>
+      <rect x="78" y="18" width="13" height="58" rx="6" fill={skinLight}/>
+      <rect x="93" y="22" width="12" height="54" rx="6" fill={skinLight}/>
+      <circle cx="30" cy="58" r="10" fill={skinLight}/>
+      <path d="M30 58 Q52 50 70 54" stroke={skinDark} strokeWidth="2.5" fill="none"/>
+      <text x="116" y="100" fontSize="28" fontWeight="bold" fill={green} fontFamily="Arial">7</text>
+    </Hand>,
 
-    'Diez': (
-      <svg width={size} height={size} viewBox="0 0 160 160" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <rect width="160" height="160" rx="20" fill="#EEF2FF"/>
-        <rect x="68" y="115" width="24" height="30" rx="8" fill="#D4956A"/>
-        <rect x="52" y="72" width="56" height="50" rx="14" fill="#E8A87C"/>
-        {/* Pulgar arriba */}
-        <rect x="36" y="54" width="22" height="26" rx="8" fill="#E8A87C"/>
-        <rect x="44" y="34" width="14" height="28" rx="7" fill="#E8A87C"/>
-        {/* Flecha de rotación */}
-        <path d="M98 75 A18 18 0 1 1 80 57" stroke="#178C5C" strokeWidth="2.5" fill="none" strokeLinecap="round"/>
-        <path d="M76 53 L80 57 L84 53" stroke="#178C5C" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
-        <text x="118" y="95" fontSize="26" fontWeight="bold" fill="#178C5C" fontFamily="Arial">10</text>
-      </svg>
-    ),
+    'Ocho': <Hand bg="#EEF2FF">
+      <rect x="58" y="108" width="24" height="20" rx="8" fill={sleeve}/>
+      <rect x="44" y="70" width="52" height="44" rx="14" fill={skin}/>
+      <rect x="46" y="20" width="13" height="56" rx="6" fill={skinLight}/>
+      <rect x="62" y="16" width="13" height="60" rx="6" fill={skinLight}/>
+      <rect x="78" y="18" width="13" height="58" rx="6" fill={skinLight}/>
+      <circle cx="30" cy="58" r="10" fill={skinLight}/>
+      <path d="M30 58 Q58 52 84 54" stroke={skinDark} strokeWidth="2.5" fill="none"/>
+      <text x="116" y="100" fontSize="28" fontWeight="bold" fill={green} fontFamily="Arial">8</text>
+    </Hand>,
 
-    // ── ANIMALES ─────────────────────────────────────────────────
-    'Perro': (
-      <svg width={size} height={size} viewBox="0 0 160 160" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <rect width="160" height="160" rx="20" fill="#FFF3E8"/>
-        {/* Muslo */}
-        <rect x="30" y="90" width="55" height="28" rx="10" fill="#4A90D9" opacity="0.25"/>
-        {/* Mano golpeando muslo */}
-        <rect x="35" y="88" width="50" height="24" rx="10" fill="#E8A87C"/>
-        <rect x="40" y="68" width="12" height="28" rx="6" fill="#E8A87C"/>
-        <rect x="55" y="64" width="12" height="32" rx="6" fill="#E8A87C"/>
-        <rect x="70" y="66" width="12" height="30" rx="6" fill="#E8A87C"/>
-        <rect x="83" y="70" width="11" height="26" rx="5" fill="#E8A87C"/>
-        {/* Flecha hacia abajo */}
-        <path d="M105 72 L105 92" stroke="#178C5C" strokeWidth="2.5" strokeLinecap="round"/>
-        <path d="M99 86 L105 92 L111 86" stroke="#178C5C" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
-        {/* Huella de perro */}
-        <ellipse cx="130" cy="100" rx="8" ry="10" fill="#D4956A" opacity="0.4"/>
-        <circle cx="122" cy="90" r="4" fill="#D4956A" opacity="0.4"/>
-        <circle cx="138" cy="90" r="4" fill="#D4956A" opacity="0.4"/>
-        <circle cx="118" cy="100" r="3.5" fill="#D4956A" opacity="0.4"/>
-        <circle cx="142" cy="100" r="3.5" fill="#D4956A" opacity="0.4"/>
-      </svg>
-    ),
+    'Nueve': <Hand bg="#EEF2FF">
+      <rect x="58" y="108" width="24" height="20" rx="8" fill={sleeve}/>
+      <rect x="44" y="70" width="52" height="44" rx="14" fill={skin}/>
+      <rect x="46" y="20" width="13" height="56" rx="6" fill={skinLight}/>
+      <rect x="62" y="16" width="13" height="60" rx="6" fill={skinLight}/>
+      <rect x="92" y="22" width="12" height="54" rx="6" fill={skinLight}/>
+      <circle cx="30" cy="58" r="10" fill={skinLight}/>
+      <path d="M30 58 Q64 50 96 54" stroke={skinDark} strokeWidth="2.5" fill="none"/>
+      <text x="116" y="100" fontSize="28" fontWeight="bold" fill={green} fontFamily="Arial">9</text>
+    </Hand>,
 
-    'Gato': (
-      <svg width={size} height={size} viewBox="0 0 160 160" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <rect width="160" height="160" rx="20" fill="#FFF3E8"/>
-        {/* Cara */}
-        <circle cx="80" cy="45" r="28" fill="#F0C89A"/>
-        {/* Bigotes */}
-        <line x1="52" y1="48" x2="72" y2="52" stroke="#8B6914" strokeWidth="2" strokeLinecap="round"/>
-        <line x1="52" y1="55" x2="72" y2="55" stroke="#8B6914" strokeWidth="2" strokeLinecap="round"/>
-        <line x1="88" y1="52" x2="108" y2="48" stroke="#8B6914" strokeWidth="2" strokeLinecap="round"/>
-        <line x1="88" y1="55" x2="108" y2="55" stroke="#8B6914" strokeWidth="2" strokeLinecap="round"/>
-        {/* Dedos en mejilla imitando bigotes */}
-        <rect x="42" y="44" width="10" height="6" rx="3" fill="#E8A87C"/>
-        <rect x="40" y="54" width="12" height="6" rx="3" fill="#E8A87C"/>
-        <rect x="108" y="44" width="10" height="6" rx="3" fill="#E8A87C"/>
-        <rect x="108" y="54" width="12" height="6" rx="3" fill="#E8A87C"/>
-        {/* Orejas */}
-        <polygon points="58,20 52,8 70,18" fill="#F0C89A"/>
-        <polygon points="102,20 108,8 90,18" fill="#F0C89A"/>
-      </svg>
-    ),
+    'Diez': <Hand bg="#EEF2FF">
+      <rect x="58" y="108" width="24" height="20" rx="8" fill={sleeve}/>
+      <rect x="44" y="70" width="52" height="44" rx="14" fill={skin}/>
+      <rect x="26" y="56" width="22" height="26" rx="10" fill={skin}/>
+      <rect x="32" y="34" width="16" height="30" rx="8" fill={skinLight}/>
+      <path d="M96 76 A22 22 0 1 1 74 54" stroke={green} strokeWidth="3" fill="none" strokeLinecap="round"/>
+      <path d="M70 50 L74 54 L78 50" stroke={green} strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" fill="none"/>
+      <text x="108" y="100" fontSize="26" fontWeight="bold" fill={green} fontFamily="Arial">10</text>
+    </Hand>,
 
-    'Pájaro': (
-      <svg width={size} height={size} viewBox="0 0 160 160" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <rect width="160" height="160" rx="20" fill="#E8F5FF"/>
-        <circle cx="80" cy="44" r="22" fill="#F0C89A"/>
-        {/* Pico */}
-        <path d="M68 50 L80 58 L92 50 Q80 62 68 50Z" fill="#E8952A"/>
-        {/* Mano frente a la boca abriéndose */}
-        <rect x="56" y="62" width="48" height="28" rx="12" fill="#E8A87C"/>
-        <rect x="60" y="44" width="12" height="24" rx="6" fill="#E8A87C"/>
-        <rect x="74" y="42" width="12" height="26" rx="6" fill="#E8A87C"/>
-        <rect x="88" y="44" width="12" height="24" rx="6" fill="#E8A87C"/>
-        {/* Flecha de apertura */}
-        <path d="M60 100 Q50 112 52 122" stroke="#178C5C" strokeWidth="2" fill="none" strokeLinecap="round"/>
-        <path d="M100 100 Q110 112 108 122" stroke="#178C5C" strokeWidth="2" fill="none" strokeLinecap="round"/>
-        {/* Pájaro pequeño */}
-        <path d="M120 40 Q130 32 140 40 Q130 36 120 40Z" fill="#4A90D9"/>
-        <circle cx="138" cy="38" r="3" fill="#4A90D9"/>
-        <path d="M116 40 Q118 36 122 38" stroke="#4A90D9" strokeWidth="2" fill="none"/>
-      </svg>
-    ),
+    'Perro': <Hand bg="#FFF3E8">
+      <rect x="20" y="86" width="62" height="26" rx="10" fill={sleeve} opacity="0.4"/>
+      <rect x="24" y="82" width="62" height="28" rx="12" fill={skin}/>
+      <rect x="28" y="60" width="14" height="30" rx="7" fill={skinLight}/>
+      <rect x="44" y="56" width="14" height="34" rx="7" fill={skinLight}/>
+      <rect x="60" y="58" width="14" height="32" rx="7" fill={skinLight}/>
+      <rect x="74" y="64" width="13" height="26" rx="6" fill={skinLight}/>
+      <path d="M92 80 L92 60" stroke={green} strokeWidth="3" strokeLinecap="round"/>
+      <path d="M86 66 L92 60 L98 66" stroke={green} strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" fill="none"/>
+      <ellipse cx="118" cy="96" rx="10" ry="12" fill={skinDark} opacity="0.3"/>
+      <circle cx="108" cy="84" r="5" fill={skinDark} opacity="0.3"/>
+      <circle cx="128" cy="84" r="5" fill={skinDark} opacity="0.3"/>
+    </Hand>,
 
-    'Pez': (
-      <svg width={size} height={size} viewBox="0 0 160 160" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <rect width="160" height="160" rx="20" fill="#E8F5FF"/>
-        {/* Mano plana */}
-        <rect x="40" y="72" width="70" height="22" rx="10" fill="#E8A87C"/>
-        <rect x="44" y="54" width="12" height="24" rx="6" fill="#E8A87C"/>
-        <rect x="59" y="50" width="12" height="28" rx="6" fill="#E8A87C"/>
-        <rect x="74" y="52" width="12" height="26" rx="6" fill="#E8A87C"/>
-        <rect x="88" y="56" width="11" height="22" rx="5" fill="#E8A87C"/>
-        {/* Cola de pez */}
-        <path d="M110 72 L128 60 L128 94 Z" fill="#E8A87C"/>
-        {/* Flecha ondulada */}
-        <path d="M20 95 Q35 86 50 95 Q65 104 80 95 Q95 86 110 95" stroke="#178C5C" strokeWidth="2.5" fill="none" strokeLinecap="round"/>
-        <path d="M104 89 L110 95 L104 101" stroke="#178C5C" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
-      </svg>
-    ),
+    'Gato': <Hand bg="#FFF3E8">
+      <ellipse cx="70" cy="56" rx="32" ry="28" fill="#F0C49A"/>
+      <polygon points="44,32 36,14 58,28" fill="#F0C49A"/>
+      <polygon points="96,32 104,14 82,28" fill="#F0C49A"/>
+      <circle cx="56" cy="52" r="5" fill="#3A2A1A"/>
+      <circle cx="84" cy="52" r="5" fill="#3A2A1A"/>
+      <path d="M62 62 Q70 68 78 62" stroke="#3A2A1A" strokeWidth="2" fill="none" strokeLinecap="round"/>
+      <path d="M32 54 L52 58" stroke="#8B6914" strokeWidth="2" strokeLinecap="round"/>
+      <path d="M30 62 L52 62" stroke="#8B6914" strokeWidth="2" strokeLinecap="round"/>
+      <path d="M88 58 L108 54" stroke="#8B6914" strokeWidth="2" strokeLinecap="round"/>
+      <path d="M88 62 L110 62" stroke="#8B6914" strokeWidth="2" strokeLinecap="round"/>
+    </Hand>,
 
-    'Elefante': (
-      <svg width={size} height={size} viewBox="0 0 160 160" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <rect width="160" height="160" rx="20" fill="#F0F0FF"/>
-        <circle cx="80" cy="38" r="22" fill="#F0C89A"/>
-        {/* Nariz — trompa */}
-        <path d="M70 56 Q62 72 60 88 Q58 100 68 104 Q78 108 80 98" stroke="#E8A87C" strokeWidth="14" fill="none" strokeLinecap="round"/>
-        {/* Mano en la nariz */}
-        <rect x="56" y="52" width="44" height="22" rx="10" fill="#E8A87C"/>
-        <rect x="62" y="36" width="11" height="24" rx="5" fill="#E8A87C"/>
-        <rect x="75" y="32" width="11" height="28" rx="5" fill="#E8A87C"/>
-        <rect x="88" y="36" width="11" height="24" rx="5" fill="#E8A87C"/>
-        {/* Orejas elefante */}
-        <ellipse cx="118" cy="55" rx="18" ry="22" fill="#D4956A" opacity="0.4"/>
-        <ellipse cx="42" cy="55" rx="18" ry="22" fill="#D4956A" opacity="0.4"/>
-      </svg>
-    ),
+    'Pájaro': <Hand bg="#E8F5FF">
+      <ellipse cx="70" cy="40" rx="22" ry="24" fill="#F0C49A"/>
+      <path d="M58 50 L70 60 L82 50 Q70 66 58 50Z" fill="#E8952A"/>
+      <rect x="46" y="66" width="48" height="26" rx="12" fill={skin}/>
+      <rect x="50" y="46" width="13" height="26" rx="6" fill={skinLight}/>
+      <rect x="65" y="42" width="13" height="30" rx="6" fill={skinLight}/>
+      <rect x="80" y="44" width="13" height="28" rx="6" fill={skinLight}/>
+      <path d="M48 96 Q38 110 40 122" stroke={green} strokeWidth="2.5" fill="none" strokeLinecap="round"/>
+      <path d="M92 96 Q102 110 100 122" stroke={green} strokeWidth="2.5" fill="none" strokeLinecap="round"/>
+      <path d="M112 32 Q124 22 134 32 Q124 28 112 32Z" fill="#4A90D9"/>
+      <circle cx="132" cy="30" r="4" fill="#4A90D9"/>
+    </Hand>,
 
-    // ── FAMILIA ──────────────────────────────────────────────────
-    'Papá': (
-      <svg width={size} height={size} viewBox="0 0 160 160" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <rect width="160" height="160" rx="20" fill="#FFF3E8"/>
-        <circle cx="80" cy="44" r="22" fill="#F0C89A"/>
-        {/* Frente */}
-        <rect x="58" y="22" width="44" height="12" rx="6" fill="#F0C89A"/>
-        {/* Pulgar tocando la frente */}
-        <rect x="50" y="22" width="28" height="16" rx="8" fill="#E8A87C"/>
-        <rect x="44" y="18" width="16" height="28" rx="8" fill="#E8A87C"/>
-        {/* Resto de dedos doblados */}
-        <rect x="64" y="30" width="10" height="16" rx="5" fill="#E8A87C"/>
-        <rect x="76" y="30" width="10" height="16" rx="5" fill="#E8A87C"/>
-        <rect x="87" y="32" width="9" height="14" rx="4" fill="#E8A87C"/>
-        {/* Flecha hacia adelante */}
-        <path d="M100 30 L118 22" stroke="#178C5C" strokeWidth="2.5" strokeLinecap="round"/>
-        <path d="M112 18 L118 22 L114 28" stroke="#178C5C" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
-      </svg>
-    ),
+    'Pez': <Hand bg="#E8F5FF">
+      <rect x="30" y="66" width="68" height="22" rx="10" fill={skin}/>
+      <rect x="34" y="46" width="13" height="26" rx="6" fill={skinLight}/>
+      <rect x="50" y="42" width="13" height="30" rx="6" fill={skinLight}/>
+      <rect x="66" y="44" width="13" height="28" rx="6" fill={skinLight}/>
+      <rect x="80" y="48" width="12" height="24" rx="6" fill={skinLight}/>
+      <path d="M98 66 L116 54 L116 88 Z" fill={skinLight}/>
+      <path d="M10 88 Q24 78 38 88 Q52 98 66 88 Q80 78 94 88" stroke={green} strokeWidth="2.5" fill="none" strokeLinecap="round"/>
+      <path d="M88 82 L94 88 L88 94" stroke={green} strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" fill="none"/>
+    </Hand>,
 
-    'Mamá': (
-      <svg width={size} height={size} viewBox="0 0 160 160" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <rect width="160" height="160" rx="20" fill="#FFF0F5"/>
-        <circle cx="80" cy="50" r="22" fill="#F0C89A"/>
-        {/* Mentón */}
-        <rect x="58" y="68" width="44" height="12" rx="6" fill="#F0C89A"/>
-        {/* Pulgar tocando el mentón */}
-        <rect x="48" y="66" width="28" height="16" rx="8" fill="#E8A87C"/>
-        <rect x="42" y="62" width="16" height="28" rx="8" fill="#E8A87C"/>
-        <rect x="62" y="74" width="10" height="14" rx="5" fill="#E8A87C"/>
-        <rect x="74" y="74" width="10" height="14" rx="5" fill="#E8A87C"/>
-        <rect x="85" y="76" width="9" height="12" rx="4" fill="#E8A87C"/>
-        <path d="M96 72 L114 64" stroke="#178C5C" strokeWidth="2.5" strokeLinecap="round"/>
-        <path d="M108 60 L114 64 L110 70" stroke="#178C5C" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
-      </svg>
-    ),
+    'Elefante': <Hand bg="#F0F0FF">
+      <ellipse cx="70" cy="38" rx="22" ry="24" fill="#F0C49A"/>
+      <path d="M58 58 Q48 76 46 96 Q44 110 56 114 Q68 118 70 106" stroke={skin} strokeWidth="16" fill="none" strokeLinecap="round"/>
+      <rect x="46" y="52" width="48" height="24" rx="12" fill={skin}/>
+      <rect x="50" y="32" width="13" height="26" rx="6" fill={skinLight}/>
+      <rect x="65" y="28" width="13" height="30" rx="6" fill={skinLight}/>
+      <rect x="80" y="30" width="13" height="28" rx="6" fill={skinLight}/>
+      <ellipse cx="112" cy="52" rx="18" ry="22" fill="#D4956A" opacity="0.3"/>
+      <ellipse cx="28" cy="52" rx="18" ry="22" fill="#D4956A" opacity="0.3"/>
+    </Hand>,
 
-    'Hermano': (
-      <svg width={size} height={size} viewBox="0 0 160 160" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <rect width="160" height="160" rx="20" fill="#E8F5EE"/>
-        {/* Dos manos juntas */}
-        <rect x="30" y="72" width="44" height="32" rx="10" fill="#E8A87C"/>
-        <rect x="86" y="72" width="44" height="32" rx="10" fill="#E8A87C"/>
-        <rect x="36" y="52" width="11" height="28" rx="5" fill="#E8A87C"/>
-        <rect x="50" y="48" width="11" height="32" rx="5" fill="#E8A87C"/>
-        <rect x="64" y="50" width="10" height="30" rx="5" fill="#E8A87C"/>
-        <rect x="92" y="52" width="11" height="28" rx="5" fill="#E8A87C"/>
-        <rect x="106" y="48" width="11" height="32" rx="5" fill="#E8A87C"/>
-        <rect x="119" y="50" width="10" height="30" rx="5" fill="#E8A87C"/>
-        {/* Flecha de unión */}
-        <path d="M74 80 L86 80" stroke="#178C5C" strokeWidth="3" strokeLinecap="round"/>
-        <path d="M80 74 L86 80 L80 86" stroke="#178C5C" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
-      </svg>
-    ),
+    'Papá': <Hand bg="#FFF3E8">
+      <ellipse cx="70" cy="50" rx="22" ry="24" fill="#F0C49A"/>
+      <rect x="46" y="24" width="28" height="18" rx="8" fill={skin}/>
+      <rect x="36" y="18" width="18" height="30" rx="9" fill={skinLight}/>
+      <rect x="56" y="32" width="12" height="16" rx="6" fill={skinLight}/>
+      <rect x="70" y="32" width="12" height="16" rx="6" fill={skinLight}/>
+      <rect x="82" y="36" width="11" height="14" rx="5" fill={skinLight}/>
+      <path d="M96 30 L116 20" stroke={green} strokeWidth="3" strokeLinecap="round"/>
+      <path d="M109 16 L116 20 L112 27" stroke={green} strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" fill="none"/>
+    </Hand>,
 
-    'Hermana': (
-      <svg width={size} height={size} viewBox="0 0 160 160" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <rect width="160" height="160" rx="20" fill="#FFF0F5"/>
-        <rect x="30" y="72" width="44" height="32" rx="10" fill="#E8A87C"/>
-        <rect x="86" y="72" width="44" height="32" rx="10" fill="#E8A87C"/>
-        <rect x="36" y="52" width="11" height="28" rx="5" fill="#E8A87C"/>
-        <rect x="50" y="48" width="11" height="32" rx="5" fill="#E8A87C"/>
-        <rect x="92" y="52" width="11" height="28" rx="5" fill="#E8A87C"/>
-        <rect x="106" y="48" width="11" height="32" rx="5" fill="#E8A87C"/>
-        <path d="M74 80 L86 80" stroke="#E8509A" strokeWidth="3" strokeLinecap="round"/>
-        <path d="M80 74 L86 80 L80 86" stroke="#E8509A" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
-        {/* Lazo */}
-        <path d="M72 40 Q80 30 88 40 Q80 46 72 40Z" fill="#E8509A" opacity="0.6"/>
-      </svg>
-    ),
+    'Mamá': <Hand bg="#FFF0F5">
+      <ellipse cx="70" cy="44" rx="22" ry="24" fill="#F0C49A"/>
+      <rect x="46" y="66" width="28" height="18" rx="8" fill={skin}/>
+      <rect x="36" y="60" width="18" height="30" rx="9" fill={skinLight}/>
+      <rect x="56" y="72" width="12" height="16" rx="6" fill={skinLight}/>
+      <rect x="70" y="72" width="12" height="16" rx="6" fill={skinLight}/>
+      <rect x="82" y="74" width="11" height="14" rx="5" fill={skinLight}/>
+      <path d="M96 70 L116 60" stroke={green} strokeWidth="3" strokeLinecap="round"/>
+      <path d="M109 56 L116 60 L112 67" stroke={green} strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" fill="none"/>
+    </Hand>,
 
-    'Abuelo': (
-      <svg width={size} height={size} viewBox="0 0 160 160" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <rect width="160" height="160" rx="20" fill="#FFF3E8"/>
-        <circle cx="80" cy="42" r="22" fill="#F0C89A"/>
-        {/* Cabello blanco */}
-        <path d="M58 30 Q80 18 102 30" stroke="white" strokeWidth="6" fill="none" strokeLinecap="round"/>
-        {/* Pulgar en frente */}
-        <rect x="48" y="24" width="24" height="14" rx="7" fill="#E8A87C"/>
-        <rect x="42" y="20" width="14" height="26" rx="7" fill="#E8A87C"/>
-        {/* Dos arcos */}
-        <path d="M100 32 Q112 22 118 32" stroke="#178C5C" strokeWidth="2.5" fill="none" strokeLinecap="round"/>
-        <path d="M104 44 Q116 34 122 44" stroke="#178C5C" strokeWidth="2.5" fill="none" strokeLinecap="round"/>
-      </svg>
-    ),
+    'Hermano': <Hand bg="#E8F5EE">
+      <rect x="16" y="72" width="46" height="32" rx="10" fill={skin}/>
+      <rect x="20" y="50" width="13" height="28" rx="6" fill={skinLight}/>
+      <rect x="35" y="46" width="13" height="32" rx="6" fill={skinLight}/>
+      <rect x="50" y="48" width="12" height="30" rx="6" fill={skinLight}/>
+      <rect x="78" y="72" width="46" height="32" rx="10" fill={skin}/>
+      <rect x="82" y="50" width="13" height="28" rx="6" fill={skinLight}/>
+      <rect x="97" y="46" width="13" height="32" rx="6" fill={skinLight}/>
+      <rect x="112" y="48" width="12" height="30" rx="6" fill={skinLight}/>
+      <path d="M62 84 L78 84" stroke={green} strokeWidth="3.5" strokeLinecap="round"/>
+      <path d="M72 78 L78 84 L72 90" stroke={green} strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" fill="none"/>
+    </Hand>,
 
-    // ── EMOCIONES ────────────────────────────────────────────────
-    'Feliz': (
-      <svg width={size} height={size} viewBox="0 0 160 160" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <rect width="160" height="160" rx="20" fill="#FFFBE8"/>
-        <circle cx="80" cy="50" r="26" fill="#FAC775"/>
-        {/* Cara feliz */}
-        <circle cx="70" cy="46" r="4" fill="#5A3A00"/>
-        <circle cx="90" cy="46" r="4" fill="#5A3A00"/>
-        <path d="M68 58 Q80 68 92 58" stroke="#5A3A00" strokeWidth="2.5" fill="none" strokeLinecap="round"/>
-        {/* Mano en el pecho */}
-        <rect x="54" y="88" width="52" height="28" rx="12" fill="#E8A87C"/>
-        <rect x="58" y="70" width="12" height="26" rx="6" fill="#E8A87C"/>
-        <rect x="72" y="66" width="12" height="30" rx="6" fill="#E8A87C"/>
-        <rect x="86" y="68" width="12" height="28" rx="6" fill="#E8A87C"/>
-        {/* Flecha hacia arriba */}
-        <path d="M108 106 L108 88" stroke="#178C5C" strokeWidth="2.5" strokeLinecap="round"/>
-        <path d="M102 94 L108 88 L114 94" stroke="#178C5C" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
-      </svg>
-    ),
+    'Hermana': <Hand bg="#FFF0F5">
+      <rect x="16" y="72" width="46" height="32" rx="10" fill={skin}/>
+      <rect x="20" y="50" width="13" height="28" rx="6" fill={skinLight}/>
+      <rect x="35" y="46" width="13" height="32" rx="6" fill={skinLight}/>
+      <rect x="50" y="48" width="12" height="30" rx="6" fill={skinLight}/>
+      <rect x="78" y="72" width="46" height="32" rx="10" fill={skin}/>
+      <rect x="82" y="50" width="13" height="28" rx="6" fill={skinLight}/>
+      <rect x="97" y="46" width="13" height="32" rx="6" fill={skinLight}/>
+      <rect x="112" y="48" width="12" height="30" rx="6" fill={skinLight}/>
+      <path d="M62 84 L78 84" stroke="#E8509A" strokeWidth="3.5" strokeLinecap="round"/>
+      <path d="M72 78 L78 84 L72 90" stroke="#E8509A" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" fill="none"/>
+      <path d="M62 36 Q70 26 78 36 Q70 42 62 36Z" fill="#E8509A" opacity="0.7"/>
+    </Hand>,
 
-    'Triste': (
-      <svg width={size} height={size} viewBox="0 0 160 160" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <rect width="160" height="160" rx="20" fill="#EEF2FF"/>
-        <circle cx="80" cy="42" r="24" fill="#A8B8D8"/>
-        <circle cx="70" cy="38" r="3.5" fill="#3A3A5A"/>
-        <circle cx="90" cy="38" r="3.5" fill="#3A3A5A"/>
-        <path d="M68 52 Q80 44 92 52" stroke="#3A3A5A" strokeWidth="2.5" fill="none" strokeLinecap="round"/>
-        {/* Lágrima */}
-        <ellipse cx="68" cy="48" rx="3" ry="5" fill="#6688CC" opacity="0.6"/>
-        {/* Manos bajando por la cara */}
-        <rect x="38" y="60" width="28" height="44" rx="10" fill="#E8A87C" opacity="0.8"/>
-        <rect x="94" y="60" width="28" height="44" rx="10" fill="#E8A87C" opacity="0.8"/>
-        {/* Flechas hacia abajo */}
-        <path d="M52 108 L52 126" stroke="#178C5C" strokeWidth="2.5" strokeLinecap="round"/>
-        <path d="M46 120 L52 126 L58 120" stroke="#178C5C" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
-        <path d="M108 108 L108 126" stroke="#178C5C" strokeWidth="2.5" strokeLinecap="round"/>
-        <path d="M102 120 L108 126 L114 120" stroke="#178C5C" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
-      </svg>
-    ),
+    'Abuelo': <Hand bg="#FFF3E8">
+      <ellipse cx="70" cy="44" rx="22" ry="24" fill="#F0C49A"/>
+      <path d="M50 26 Q70 14 90 26" stroke="white" strokeWidth="7" fill="none" strokeLinecap="round"/>
+      <rect x="46" y="24" width="24" height="16" rx="8" fill={skin}/>
+      <rect x="36" y="18" width="18" height="28" rx="9" fill={skinLight}/>
+      <path d="M94 30 Q106 20 114 30" stroke={green} strokeWidth="3" fill="none" strokeLinecap="round"/>
+      <path d="M94 44 Q106 34 114 44" stroke={green} strokeWidth="3" fill="none" strokeLinecap="round"/>
+    </Hand>,
 
-    'Enojado': (
-      <svg width={size} height={size} viewBox="0 0 160 160" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <rect width="160" height="160" rx="20" fill="#FFF0F0"/>
-        <circle cx="80" cy="45" r="24" fill="#F08080"/>
-        <path d="M65 36 L72 40" stroke="#5A2020" strokeWidth="2.5" strokeLinecap="round"/>
-        <path d="M95 36 L88 40" stroke="#5A2020" strokeWidth="2.5" strokeLinecap="round"/>
-        <circle cx="70" cy="44" r="3.5" fill="#5A2020"/>
-        <circle cx="90" cy="44" r="3.5" fill="#5A2020"/>
-        <path d="M68 56 Q80 50 92 56" stroke="#5A2020" strokeWidth="2.5" fill="none" strokeLinecap="round"/>
-        {/* Dedos curvados frente a la cara */}
-        <path d="M44 72 Q40 80 44 88" stroke="#E8A87C" strokeWidth="12" fill="none" strokeLinecap="round"/>
-        <path d="M58 68 Q54 78 58 88" stroke="#E8A87C" strokeWidth="12" fill="none" strokeLinecap="round"/>
-        <path d="M102 68 Q106 78 102 88" stroke="#E8A87C" strokeWidth="12" fill="none" strokeLinecap="round"/>
-        <path d="M116 72 Q120 80 116 88" stroke="#E8A87C" strokeWidth="12" fill="none" strokeLinecap="round"/>
-        {/* Flecha hacia afuera */}
-        <path d="M80 100 L80 120" stroke="#E85A5A" strokeWidth="2.5" strokeLinecap="round"/>
-        <path d="M74 114 L80 120 L86 114" stroke="#E85A5A" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
-      </svg>
-    ),
+    'Feliz': <Hand bg="#FFFBE8">
+      <circle cx="70" cy="46" r="28" fill="#FAC775"/>
+      <circle cx="58" cy="42" r="5" fill="#3A2A00"/>
+      <circle cx="82" cy="42" r="5" fill="#3A2A00"/>
+      <path d="M56 56 Q70 68 84 56" stroke="#3A2A00" strokeWidth="2.5" fill="none" strokeLinecap="round"/>
+      <rect x="46" y="84" width="48" height="26" rx="12" fill={skin}/>
+      <rect x="50" y="66" width="13" height="26" rx="6" fill={skinLight}/>
+      <rect x="65" y="62" width="13" height="30" rx="6" fill={skinLight}/>
+      <rect x="80" y="64" width="13" height="28" rx="6" fill={skinLight}/>
+      <path d="M98 94 L98 76" stroke={green} strokeWidth="3" strokeLinecap="round"/>
+      <path d="M92 82 L98 76 L104 82" stroke={green} strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" fill="none"/>
+    </Hand>,
 
-    'Miedo': (
-      <svg width={size} height={size} viewBox="0 0 160 160" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <rect width="160" height="160" rx="20" fill="#F5F0FF"/>
-        <circle cx="80" cy="44" r="22" fill="#D8C8F0"/>
-        <circle cx="70" cy="40" r="5" fill="#3A2A5A"/>
-        <circle cx="90" cy="40" r="5" fill="#3A2A5A"/>
-        <ellipse cx="80" cy="55" rx="8" ry="5" fill="#3A2A5A"/>
-        {/* Ambas manos temblando */}
-        <rect x="30" y="80" width="40" height="28" rx="10" fill="#E8A87C"/>
-        <rect x="90" y="80" width="40" height="28" rx="10" fill="#E8A87C"/>
-        <rect x="34" y="60" width="10" height="26" rx="5" fill="#E8A87C"/>
-        <rect x="48" y="56" width="10" height="30" rx="5" fill="#E8A87C"/>
-        <rect x="94" y="60" width="10" height="26" rx="5" fill="#E8A87C"/>
-        <rect x="108" y="56" width="10" height="30" rx="5" fill="#E8A87C"/>
-        {/* Líneas de temblor */}
-        <path d="M28 76 Q33 72 28 68" stroke="#8B6BD4" strokeWidth="2" fill="none" strokeLinecap="round"/>
-        <path d="M132 76 Q127 72 132 68" stroke="#8B6BD4" strokeWidth="2" fill="none" strokeLinecap="round"/>
-      </svg>
-    ),
+    'Triste': <Hand bg="#EEF2FF">
+      <circle cx="70" cy="40" r="26" fill="#A8B8D8"/>
+      <circle cx="58" cy="36" r="4.5" fill="#2A2A4A"/>
+      <circle cx="82" cy="36" r="4.5" fill="#2A2A4A"/>
+      <path d="M58 52 Q70 44 82 52" stroke="#2A2A4A" strokeWidth="2.5" fill="none" strokeLinecap="round"/>
+      <ellipse cx="58" cy="44" rx="4" ry="6" fill="#6688CC" opacity="0.5"/>
+      <rect x="26" y="64" width="30" height="44" rx="10" fill={skin} opacity="0.85"/>
+      <rect x="84" y="64" width="30" height="44" rx="10" fill={skin} opacity="0.85"/>
+      <path d="M40 110 L40 126" stroke={green} strokeWidth="2.5" strokeLinecap="round"/>
+      <path d="M34 120 L40 126 L46 120" stroke={green} strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" fill="none"/>
+      <path d="M100 110 L100 126" stroke={green} strokeWidth="2.5" strokeLinecap="round"/>
+      <path d="M94 120 L100 126 L106 120" stroke={green} strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" fill="none"/>
+    </Hand>,
 
-    'Amor': (
-      <svg width={size} height={size} viewBox="0 0 160 160" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <rect width="160" height="160" rx="20" fill="#FFF0F8"/>
-        {/* Brazos cruzados */}
-        <rect x="30" y="80" width="70" height="26" rx="12" fill="#E8A87C"/>
-        <rect x="60" y="80" width="70" height="26" rx="12" fill="#D4845A"/>
-        {/* Corazón */}
-        <path d="M80 55 Q80 38 65 38 Q50 38 50 52 Q50 66 80 82 Q110 66 110 52 Q110 38 95 38 Q80 38 80 55Z" fill="#E85A8A"/>
-        <path d="M80 55 Q80 38 65 38 Q50 38 50 52 Q50 66 80 82 Q110 66 110 52 Q110 38 95 38 Q80 38 80 55Z" fill="#FF7AAA" opacity="0.6"/>
-      </svg>
-    ),
+    'Enojado': <Hand bg="#FFF0F0">
+      <circle cx="70" cy="42" r="26" fill="#F08080"/>
+      <path d="M54 32 L62 37" stroke="#5A1A1A" strokeWidth="2.5" strokeLinecap="round"/>
+      <path d="M86 32 L78 37" stroke="#5A1A1A" strokeWidth="2.5" strokeLinecap="round"/>
+      <circle cx="60" cy="40" r="4.5" fill="#5A1A1A"/>
+      <circle cx="80" cy="40" r="4.5" fill="#5A1A1A"/>
+      <path d="M58 54 Q70 46 82 54" stroke="#5A1A1A" strokeWidth="2.5" fill="none" strokeLinecap="round"/>
+      <path d="M28 70 Q24 80 28 90" stroke={skin} strokeWidth="14" fill="none" strokeLinecap="round"/>
+      <path d="M50 66 Q46 78 50 90" stroke={skin} strokeWidth="14" fill="none" strokeLinecap="round"/>
+      <path d="M90 66 Q94 78 90 90" stroke={skin} strokeWidth="14" fill="none" strokeLinecap="round"/>
+      <path d="M112 70 Q116 80 112 90" stroke={skin} strokeWidth="14" fill="none" strokeLinecap="round"/>
+      <path d="M70 98 L70 118" stroke="#E85A5A" strokeWidth="3" strokeLinecap="round"/>
+      <path d="M64 112 L70 118 L76 112" stroke="#E85A5A" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" fill="none"/>
+    </Hand>,
 
-    // ── PRESENTACIÓN ─────────────────────────────────────────────
-    'Yo': (
-      <svg width={size} height={size} viewBox="0 0 160 160" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <rect width="160" height="160" rx="20" fill="#E8F5EE"/>
-        <circle cx="80" cy="50" r="24" fill="#F0C89A"/>
-        {/* Índice señalando al pecho */}
-        <rect x="72" y="80" width="16" height="50" rx="8" fill="#E8A87C"/>
-        <rect x="72" y="56" width="16" height="32" rx="8" fill="#E8A87C"/>
-        <rect x="56" y="88" width="20" height="12" rx="6" fill="#E8A87C"/>
-        <path d="M80 130 L80 145" stroke="#178C5C" strokeWidth="2.5" strokeLinecap="round"/>
-        <path d="M74 139 L80 145 L86 139" stroke="#178C5C" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
-      </svg>
-    ),
+    'Miedo': <Hand bg="#F5F0FF">
+      <circle cx="70" cy="40" r="24" fill="#D8C8F0"/>
+      <circle cx="58" cy="36" r="6" fill="#2A1A4A"/>
+      <circle cx="82" cy="36" r="6" fill="#2A1A4A"/>
+      <ellipse cx="70" cy="52" rx="9" ry="6" fill="#2A1A4A"/>
+      <rect x="18" y="76" width="44" height="30" rx="10" fill={skin}/>
+      <rect x="78" y="76" width="44" height="30" rx="10" fill={skin}/>
+      <rect x="22" y="54" width="12" height="28" rx="6" fill={skinLight}/>
+      <rect x="36" y="50" width="12" height="32" rx="6" fill={skinLight}/>
+      <rect x="82" y="54" width="12" height="28" rx="6" fill={skinLight}/>
+      <rect x="96" y="50" width="12" height="32" rx="6" fill={skinLight}/>
+      <path d="M16 70 Q22 64 16 58" stroke="#8B6BD4" strokeWidth="2.5" fill="none" strokeLinecap="round"/>
+      <path d="M124 70 Q118 64 124 58" stroke="#8B6BD4" strokeWidth="2.5" fill="none" strokeLinecap="round"/>
+    </Hand>,
 
-    'Tú': (
-      <svg width={size} height={size} viewBox="0 0 160 160" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <rect width="160" height="160" rx="20" fill="#E8F5EE"/>
-        {/* Mano apuntando hacia afuera */}
-        <rect x="52" y="76" width="56" height="28" rx="12" fill="#E8A87C"/>
-        <rect x="72" y="36" width="16" height="48" rx="8" fill="#E8A87C"/>
-        <rect x="56" y="80" width="16" height="12" rx="6" fill="#E8A87C"/>
-        <rect x="88" y="80" width="16" height="12" rx="6" fill="#E8A87C"/>
-        {/* Flecha apuntando a otra persona */}
-        <path d="M114 88 L140 88" stroke="#178C5C" strokeWidth="2.5" strokeLinecap="round"/>
-        <path d="M134 82 L140 88 L134 94" stroke="#178C5C" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
-        {/* Silueta persona */}
-        <circle cx="148" cy="60" r="10" fill="#C8E8D4"/>
-        <rect x="140" y="72" width="16" height="20" rx="6" fill="#C8E8D4"/>
-      </svg>
-    ),
+    'Amor': <Hand bg="#FFF0F8">
+      <path d="M70 54 Q70 34 52 34 Q34 34 34 50 Q34 68 70 88 Q106 68 106 50 Q106 34 88 34 Q70 34 70 54Z" fill="#F08090"/>
+      <rect x="18" y="82" width="64" height="28" rx="12" fill={skin}/>
+      <rect x="58" y="82" width="64" height="28" rx="12" fill={skinDark}/>
+    </Hand>,
 
-    'Me llamo': (
-      <svg width={size} height={size} viewBox="0 0 160 160" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <rect width="160" height="160" rx="20" fill="#E8F5EE"/>
-        {/* Dedos índices cruzados */}
-        <rect x="52" y="60" width="14" height="56" rx="7" fill="#E8A87C" transform="rotate(-20 59 88)"/>
-        <rect x="94" y="60" width="14" height="56" rx="7" fill="#D4845A" transform="rotate(20 101 88)"/>
-        {/* Señalar al pecho */}
-        <path d="M80 118 L80 140" stroke="#178C5C" strokeWidth="2.5" strokeLinecap="round"/>
-        <path d="M74 134 L80 140 L86 134" stroke="#178C5C" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
-      </svg>
-    ),
+    'Yo': <Hand bg="#E8F5EE">
+      <ellipse cx="70" cy="44" rx="22" ry="24" fill="#F0C49A"/>
+      <rect x="44" y="74" width="52" height="38" rx="14" fill={skin}/>
+      <rect x="62" y="56" width="16" height="28" rx="8" fill={skinLight}/>
+      <path d="M70 112 L70 130" stroke={green} strokeWidth="3" strokeLinecap="round"/>
+      <path d="M64 124 L70 130 L76 124" stroke={green} strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" fill="none"/>
+    </Hand>,
 
-    // ── COMIDA ───────────────────────────────────────────────────
-    'Agua': (
-      <svg width={size} height={size} viewBox="0 0 160 160" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <rect width="160" height="160" rx="20" fill="#E8F5FF"/>
-        <circle cx="80" cy="44" r="22" fill="#F0C89A"/>
-        {/* Letra W tocando labios — 3 dedos */}
-        <rect x="56" y="62" width="48" height="24" rx="10" fill="#E8A87C"/>
-        <rect x="58" y="44" width="12" height="26" rx="6" fill="#E8A87C"/>
-        <rect x="74" y="40" width="12" height="30" rx="6" fill="#E8A87C"/>
-        <rect x="90" y="44" width="12" height="26" rx="6" fill="#E8A87C"/>
-        {/* Gota de agua */}
-        <path d="M128 45 Q128 30 120 38 Q112 46 120 54 Q128 62 136 54 Q144 46 136 38 Q128 30 128 45Z" fill="#4A90D9" opacity="0.7"/>
-      </svg>
-    ),
+    'Tú': <Hand bg="#E8F5EE">
+      <rect x="44" y="70" width="52" height="28" rx="14" fill={skin}/>
+      <rect x="62" y="30" width="16" height="48" rx="8" fill={skinLight}/>
+      <rect x="48" y="74" width="16" height="14" rx="7" fill={skinLight}/>
+      <rect x="80" y="74" width="16" height="14" rx="7" fill={skinLight}/>
+      <path d="M106 82 L130 82" stroke={green} strokeWidth="3" strokeLinecap="round"/>
+      <path d="M124 76 L130 82 L124 88" stroke={green} strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" fill="none"/>
+      <circle cx="136" cy="56" r="12" fill="#C8E8D4"/>
+      <rect x="128" y="70" width="16" height="22" rx="6" fill="#C8E8D4"/>
+    </Hand>,
 
-    'Manzana': (
-      <svg width={size} height={size} viewBox="0 0 160 160" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <rect width="160" height="160" rx="20" fill="#FFF0F0"/>
-        <circle cx="80" cy="44" r="22" fill="#F0C89A"/>
-        {/* Índice doblado girando en mejilla */}
-        <path d="M60 52 Q56 60 60 68" stroke="#E8A87C" strokeWidth="12" fill="none" strokeLinecap="round"/>
-        {/* Flecha circular */}
-        <path d="M52 58 A12 12 0 1 1 52 66" stroke="#178C5C" strokeWidth="2.5" fill="none" strokeLinecap="round"/>
-        <path d="M48 62 L52 66 L56 62" stroke="#178C5C" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"/>
-        {/* Manzana */}
-        <path d="M115 55 Q115 38 100 40 Q88 38 88 55 Q88 72 100 76 Q112 72 115 55Z" fill="#E85A5A"/>
-        <path d="M100 40 Q100 30 108 28" stroke="#5A8A3A" strokeWidth="3" fill="none" strokeLinecap="round"/>
-        <ellipse cx="105" cy="46" rx="5" ry="7" fill="white" opacity="0.3"/>
-      </svg>
-    ),
+    'Me llamo': <Hand bg="#E8F5EE">
+      <rect x="38" y="56" width="16" height="56" rx="8" fill={skin} style={{transform: 'rotate(-22deg)', transformOrigin: '46px 84px'}}/>
+      <rect x="86" y="56" width="16" height="56" rx="8" fill={skinDark} style={{transform: 'rotate(22deg)', transformOrigin: '94px 84px'}}/>
+      <path d="M70 116 L70 132" stroke={green} strokeWidth="3" strokeLinecap="round"/>
+      <path d="M64 126 L70 132 L76 126" stroke={green} strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" fill="none"/>
+    </Hand>,
 
-    // fallback genérico
-    'default': (
-      <svg width={size} height={size} viewBox="0 0 160 160" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <rect width="160" height="160" rx="20" fill="#E8F5EE"/>
-        <rect x="60" y="100" width="40" height="30" rx="10" fill="#D4956A"/>
-        <rect x="48" y="60" width="64" height="48" rx="14" fill="#E8A87C"/>
-        <rect x="52" y="28" width="13" height="38" rx="6" fill="#E8A87C"/>
-        <rect x="68" y="22" width="13" height="44" rx="6" fill="#E8A87C"/>
-        <rect x="84" y="24" width="13" height="42" rx="6" fill="#E8A87C"/>
-        <rect x="98" y="30" width="12" height="36" rx="6" fill="#E8A87C"/>
-        <rect x="34" y="68" width="20" height="12" rx="6" fill="#E8A87C"/>
-      </svg>
-    )
+    'Agua': <Hand bg="#E8F5FF">
+      <ellipse cx="70" cy="40" rx="22" ry="24" fill="#F0C49A"/>
+      <rect x="44" y="60" width="52" height="26" rx="12" fill={skin}/>
+      <rect x="48" y="40" width="13" height="26" rx="6" fill={skinLight}/>
+      <rect x="63" y="36" width="13" height="30" rx="6" fill={skinLight}/>
+      <rect x="78" y="38" width="13" height="28" rx="6" fill={skinLight}/>
+      <path d="M112 48 Q112 30 102 38 Q92 46 102 54 Q112 62 122 54 Q132 46 122 38 Q112 30 112 48Z" fill="#4A90D9" opacity="0.75"/>
+    </Hand>,
+
+    'Manzana': <Hand bg="#FFF0F0">
+      <ellipse cx="70" cy="40" rx="22" ry="24" fill="#F0C49A"/>
+      <path d="M52 52 Q46 62 50 72" stroke={skin} strokeWidth="14" fill="none" strokeLinecap="round"/>
+      <path d="M44 56 A14 14 0 1 1 44 66" stroke={green} strokeWidth="2.5" fill="none" strokeLinecap="round"/>
+      <path d="M40 62 L44 66 L48 62" stroke={green} strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" fill="none"/>
+      <path d="M108 56 Q108 36 92 38 Q78 36 78 56 Q78 76 92 80 Q106 76 108 56Z" fill="#E85A5A"/>
+      <path d="M92 38 Q92 26 102 24" stroke="#5A8A3A" strokeWidth="3" fill="none" strokeLinecap="round"/>
+      <ellipse cx="97" cy="46" rx="6" ry="9" fill="white" opacity="0.25"/>
+    </Hand>,
+
+    'Pan': <Hand bg="#FFF8E8">
+      <rect x="40" y="58" width="52" height="36" rx="14" fill={skin}/>
+      <rect x="44" y="38" width="13" height="28" rx="6" fill={skinLight}/>
+      <rect x="60" y="34" width="13" height="32" rx="6" fill={skinLight}/>
+      <rect x="76" y="36" width="13" height="30" rx="6" fill={skinLight}/>
+      <rect x="34" y="64" width="18" height="12" rx="6" fill={skinLight}/>
+      <path d="M100 70 Q116 56 108 70 Q116 84 100 70Z" fill="#E8A840" opacity="0.6"/>
+    </Hand>,
+
+    'Leche': <Hand bg="#F0F8FF">
+      <rect x="40" y="58" width="52" height="36" rx="14" fill={skin}/>
+      <rect x="44" y="34" width="13" height="32" rx="6" fill={skinLight}/>
+      <rect x="60" y="30" width="13" height="36" rx="6" fill={skinLight}/>
+      <rect x="76" y="32" width="13" height="34" rx="6" fill={skinLight}/>
+      <path d="M100 64 Q106 56 100 70 Q106 84 100 76" stroke={green} strokeWidth="2.5" fill="none" strokeLinecap="round"/>
+      <path d="M112 64 Q118 56 112 70 Q118 84 112 76" stroke={green} strokeWidth="2.5" fill="none" strokeLinecap="round" opacity="0.6"/>
+    </Hand>,
+
+    'Café': <Hand bg="#FFF3E8">
+      <rect x="36" y="62" width="56" height="32" rx="14" fill={skin}/>
+      <rect x="40" y="38" width="13" height="32" rx="6" fill={skinLight}/>
+      <rect x="56" y="34" width="13" height="36" rx="6" fill={skinLight}/>
+      <rect x="72" y="36" width="13" height="34" rx="6" fill={skinLight}/>
+      <rect x="86" y="42" width="12" height="28" rx="6" fill={skinLight}/>
+      <path d="M108 62 A18 18 0 1 1 90 80" stroke="#8B5E3C" strokeWidth="3" fill="none" strokeLinecap="round"/>
+      <path d="M86 76 L90 80 L94 76" stroke="#8B5E3C" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" fill="none"/>
+    </Hand>,
+
+    'Qué': <Hand bg="#E8F5EE">
+      <rect x="40" y="60" width="60" height="32" rx="14" fill={skin}/>
+      <rect x="44" y="36" width="13" height="32" rx="6" fill={skinLight}/>
+      <rect x="60" y="32" width="13" height="36" rx="6" fill={skinLight}/>
+      <rect x="76" y="34" width="13" height="34" rx="6" fill={skinLight}/>
+      <rect x="90" y="40" width="12" height="28" rx="6" fill={skinLight}/>
+      <rect x="28" y="66" width="18" height="12" rx="6" fill={skinLight}/>
+      <path d="M50 94 L90 94" stroke={green} strokeWidth="2.5" strokeLinecap="round"/>
+      <path d="M40 94 L50 94" stroke={green} strokeWidth="2.5" strokeLinecap="round" opacity="0.4"/>
+    </Hand>,
+
+    'Dónde': <Hand bg="#E8F5EE">
+      <rect x="44" y="68" width="52" height="28" rx="14" fill={skin}/>
+      <rect x="62" y="28" width="16" height="48" rx="8" fill={skinLight}/>
+      <path d="M30 80 L50 80" stroke={green} strokeWidth="2.5" strokeLinecap="round"/>
+      <path d="M50 80 L70 80" stroke={green} strokeWidth="2.5" strokeLinecap="round" opacity="0.5"/>
+      <path d="M110 80 L130 80" stroke={green} strokeWidth="2.5" strokeLinecap="round"/>
+      <path d="M90 80 L110 80" stroke={green} strokeWidth="2.5" strokeLinecap="round" opacity="0.5"/>
+    </Hand>,
+
+    'Cuándo': <Hand bg="#E8F5EE">
+      <rect x="40" y="66" width="60" height="30" rx="14" fill={skin}/>
+      <rect x="44" y="42" width="13" height="32" rx="6" fill={skinLight}/>
+      <rect x="60" y="38" width="13" height="36" rx="6" fill={skinLight}/>
+      <rect x="76" y="40" width="13" height="34" rx="6" fill={skinLight}/>
+      <path d="M114 72 A20 20 0 1 1 94 52" stroke={green} strokeWidth="2.5" fill="none" strokeLinecap="round"/>
+      <path d="M94 52 L94 66" stroke={green} strokeWidth="2.5" strokeLinecap="round"/>
+    </Hand>,
+
+    'Por qué': <Hand bg="#E8F5EE">
+      <ellipse cx="70" cy="44" rx="22" ry="24" fill="#F0C49A"/>
+      <path d="M62 40 Q62 34 70 32 Q78 30 78 38 Q78 44 70 46 L70 52" stroke="#4A7FC4" strokeWidth="3" fill="none" strokeLinecap="round"/>
+      <circle cx="70" cy="58" r="3.5" fill="#4A7FC4"/>
+      <path d="M86 52 L106 44" stroke={green} strokeWidth="3" strokeLinecap="round"/>
+      <path d="M100 40 L106 44 L102 50" stroke={green} strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" fill="none"/>
+    </Hand>,
+
+    'Vivo en': <Hand bg="#E8F5EE">
+      <path d="M50 80 L70 50 L90 80 Z" fill={skin}/>
+      <rect x="58" y="80" width="24" height="26" rx="4" fill={skinDark}/>
+      <rect x="44" y="80" width="52" height="8" fill={skinDark}/>
+      <circle cx="70" cy="40" r="14" fill="#4A90D9" opacity="0.4"/>
+      <circle cx="70" cy="40" r="8" fill="#4A90D9" opacity="0.6"/>
+      <path d="M70 54 L70 68" stroke={green} strokeWidth="2.5" strokeLinecap="round"/>
+      <path d="M64 62 L70 68 L76 62" stroke={green} strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" fill="none"/>
+    </Hand>,
+
   }
 
-  return illustrations[word] || illustrations['default']
+  return signs[word] || (
+    <svg width={s} height={s} viewBox="0 0 140 140" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect width="140" height="140" rx="16" fill="#E8F5EE"/>
+      <rect x="56" y="98" width="28" height="22" rx="8" fill={skin}/>
+      <rect x="44" y="60" width="52" height="44" rx="14" fill={skin}/>
+      <rect x="46" y="26" width="13" height="40" rx="6" fill={skinLight}/>
+      <rect x="62" y="20" width="13" height="46" rx="6" fill={skinLight}/>
+      <rect x="78" y="22" width="13" height="44" rx="6" fill={skinLight}/>
+      <rect x="92" y="28" width="12" height="38" rx="6" fill={skinLight}/>
+      <rect x="30" y="68" width="20" height="14" rx="7" fill={skinLight}/>
+    </svg>
+  )
 }
