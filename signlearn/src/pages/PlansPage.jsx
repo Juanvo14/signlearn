@@ -29,10 +29,14 @@ export default function PlansPage() {
     setError('')
     try {
       const res = await fetch(CHECKOUT_URL, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ userId: user.id, email: user.email })
-      })
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+    'Authorization': `Bearer ${import.meta.env.VITE_SUPABASE_ANON_KEY}`,
+    'apikey': import.meta.env.VITE_SUPABASE_ANON_KEY,
+  },
+  body: JSON.stringify({ userId: user.id, email: user.email })
+})
       const data = await res.json()
       if (data.error) throw new Error(data.error)
       if (data.url) {
