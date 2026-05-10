@@ -1,6 +1,10 @@
-import { Check, X } from 'lucide-react'
+import { useState } from 'react'
+import { Check, X, Loader2 } from 'lucide-react'
 import { useStore } from '@/lib/store'
 import { TOTAL_LESSONS, TOTAL_SIGNS } from '@/data/curriculum'
+
+const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL
+const CHECKOUT_URL = `${SUPABASE_URL}/functions/v1/create-checkout`
 
 const FEATURES = [
   { label: 'Lecciones disponibles', free: '3 lecciones', premium: `${TOTAL_LESSONS}+ lecciones` },
@@ -16,21 +20,31 @@ const FEATURES = [
 
 export default function PlansPage() {
   const user = useStore((s) => s.user)
-  const upgradeToPremium = useStore((s) => s.upgradeToPremium)
   const isPremium = user?.plan === 'premium'
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState('')
 
-const handleUpgrade = async () => {
-  const res = await fetch(
-    'https://tuproyecto.supabase.co/functions/v1/create-checkout',
-    {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ userId: user.id, email: user.email })
+  const handleUpgrade = async () => {
+    setLoading(true)
+    setError('')
+    try {
+      const res = await fetch(CHECKOUT_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ userId: user.id, email: user.email })
+      })
+      const data = await res.json()
+      if (data.error) throw new Error(data.error)
+      if (data.url) {
+        window.location.href = data.url
+      } else {
+        throw new Error('No se recibió URL de pago')
+      }
+    } catch (err) {
+      setError('No se pudo iniciar el pago. Verifica que la función de Stripe esté activa.')
+      setLoading(false)
     }
-  )
-  const { url } = await res.json()
-  window.location.href = url  // Manda al usuario a pagar en Stripe
-}
+  }
 
   return (
     <div className="px-4 py-5 space-y-5">
@@ -74,12 +88,26 @@ const handleUpgrade = async () => {
           <p className="text-xs text-gray-500 mt-2 mb-4">Todo el contenido sin límites.</p>
           {isPremium
             ? <button disabled className="w-full py-2 rounded-xl text-xs font-medium bg-brand-50 text-brand-700 cursor-default">Activo</button>
-            : <button onClick={handleUpgrade} className="w-full py-2 rounded-xl text-xs font-semibold bg-brand-600 text-white hover:bg-brand-800 transition-colors active:scale-95">
-                Obtener Premium
+            : (
+              <button
+                onClick={handleUpgrade}
+                disabled={loading}
+                className="w-full py-2 rounded-xl text-xs font-semibold bg-brand-600 text-white hover:bg-brand-800 transition-colors active:scale-95 flex items-center justify-center gap-1.5"
+              >
+                {loading ? <Loader2 size={13} className="animate-spin" /> : null}
+                {loading ? 'Redirigiendo...' : 'Obtener Premium'}
               </button>
+            )
           }
         </div>
       </div>
+
+      {/* Error */}
+      {error && (
+        <div className="bg-red-50 border border-red-100 rounded-xl px-4 py-3">
+          <p className="text-xs text-red-500">{error}</p>
+        </div>
+      )}
 
       {/* Feature comparison */}
       <div className="card overflow-hidden">
@@ -95,9 +123,7 @@ const handleUpgrade = async () => {
               {typeof f.free === 'string'
                 ? <span className="text-[11px] text-gray-500">{f.free}</span>
                 : f.free
-                  ? f.invert
-                    ? <X size={14} className="text-red-400" />
-                    : <Check size={14} className="text-brand-500" />
+                  ? f.invert ? <X size={14} className="text-red-400" /> : <Check size={14} className="text-brand-500" />
                   : <X size={14} className="text-gray-300" />
               }
             </div>
@@ -105,9 +131,7 @@ const handleUpgrade = async () => {
               {typeof f.premium === 'string'
                 ? <span className="text-[11px] text-brand-700 font-medium">{f.premium}</span>
                 : f.premium
-                  ? f.invert
-                    ? <Check size={14} className="text-brand-500" />
-                    : <Check size={14} className="text-brand-500" />
+                  ? <Check size={14} className="text-brand-500" />
                   : <X size={14} className="text-gray-300" />
               }
             </div>
@@ -118,9 +142,11 @@ const handleUpgrade = async () => {
       {!isPremium && (
         <button
           onClick={handleUpgrade}
-          className="w-full rounded-2xl bg-gradient-to-r from-brand-800 to-brand-600 p-4 text-white font-semibold text-sm active:scale-95 transition-transform"
+          disabled={loading}
+          className="w-full rounded-2xl bg-gradient-to-r from-brand-800 to-brand-600 p-4 text-white font-semibold text-sm active:scale-95 transition-transform flex items-center justify-center gap-2"
         >
-          Empezar Premium — $7/mes
+          {loading ? <Loader2 size={16} className="animate-spin" /> : null}
+          {loading ? 'Redirigiendo a Stripe...' : 'Empezar Premium — $7/mes'}
         </button>
       )}
 
@@ -131,10 +157,6 @@ const handleUpgrade = async () => {
           <p className="text-xs text-gray-400 mt-1">Disfruta de todo el contenido sin límites.</p>
         </div>
       )}
-
-      <p className="text-center text-xs text-gray-400 pb-2">
-        Pasarela de pago en integración. Próximamente Stripe.
-      </p>
     </div>
   )
 }
